@@ -29,20 +29,16 @@ background:#161b22;
 padding:20px;
 margin:20px 0;
 border-radius:12px;
+transition:0.2s;
+}
+
+.project:hover{
+transform:scale(1.02);
 }
 
 a{
 color:#58a6ff;
 text-decoration:none;
-}
-
-button{
-background:#238636;
-border:none;
-padding:10px 18px;
-color:white;
-border-radius:8px;
-cursor:pointer;
 }
 </style>
 </head>
@@ -55,48 +51,49 @@ cursor:pointer;
 <p>I build Unity games, AR scanning apps, and interactive mobile experiences.</p>
 
 <p>
-<a href="https://github.com/Kaushik-NS">GitHub</a> |
-<a href="#">YouTube</a> |
-<a href="#">LinkedIn</a>
+<a href="https://github.com/Kaushik-NS">GitHub</a>
 </p>
 </header>
 
 <section>
 
-<h2>Featured Projects</h2>
+<h2>My GitHub Projects</h2>
 
-<div class="project">
-<h3>3D Building Scanner App</h3>
-<p>Unity mobile app for scanning buildings and exporting GLB models with measurement data.</p>
-<p><b>Tech:</b> Unity, C#, ARDK, Firebase</p>
-<a href="https://github.com/Kaushik-NS">View Repo</a>
-</div>
-
-<div class="project">
-<h3>3D Pac-Man Game</h3>
-<p>NavMesh AI enemies, collectibles, scoring system, and mobile controls.</p>
-<p><b>Tech:</b> Unity, C#</p>
-</div>
-
-<div class="project">
-<h3>Voucher + Firebase Unity App</h3>
-<p>Unity UI system storing vouchers and batches in Firestore with ledger filtering.</p>
-<p><b>Tech:</b> Unity, Firebase, Firestore</p>
-</div>
+<div id="projects"></div>
 
 </section>
 
-<section>
-<h2>Skills</h2>
-<p>
-Unity • C# • Mobile Game Dev • AR Development • Firebase • GitHub • UI Systems
-</p>
-</section>
+<script>
 
-<section>
-<h2>Contact</h2>
-<p>Email: your@email.com</p>
-</section>
+const username = "Kaushik-NS";
+
+fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+.then(res => res.json())
+.then(data => {
+
+const container = document.getElementById("projects");
+
+data.forEach(repo => {
+
+if(repo.fork) return; // skip forks
+
+const card = document.createElement("div");
+card.className = "project";
+
+card.innerHTML = `
+<h3>${repo.name}</h3>
+<p>${repo.description || "No description provided."}</p>
+<p><b>Language:</b> ${repo.language || "N/A"}</p>
+<a href="${repo.html_url}" target="_blank">View Repository</a>
+`;
+
+container.appendChild(card);
+
+});
+
+});
+
+</script>
 
 </body>
 </html>
