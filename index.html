@@ -77,11 +77,12 @@ data.forEach(repo => {
 
 if(repo.fork) return;
 
+// YOUR REAL FILE NAMES
 const imageUrl =
-`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
+`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/PACMAN.jpg`;
 
-const gifUrl =
-`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.gif`;
+const videoUrl =
+`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/3Dpacman_GameplayVideo1.mp4`;
 
 const card = document.createElement("div");
 card.className = "project";
@@ -89,15 +90,17 @@ card.className = "project";
 card.innerHTML = `
 <h3>${repo.name}</h3>
 
-<img src="${imageUrl}" 
-     style="width:100%;border-radius:10px;margin:10px 0"
-     onerror="this.style.display='none'">
+<img src="${imageUrl}"
+style="width:100%;border-radius:10px;margin:10px 0"
+onerror="this.style.display='none'">
+
+<video controls muted loop playsinline
+style="width:100%;border-radius:10px;margin:10px 0"
+onerror="this.style.display='none'">
+<source src="${videoUrl}" type="video/mp4">
+</video>
 
 <p>${repo.description || "No description provided."}</p>
-
-<img src="${gifUrl}" 
-     style="width:100%;border-radius:10px;margin:10px 0"
-     onerror="this.style.display='none'">
 
 <p><b>Language:</b> ${repo.language || "N/A"}</p>
 
@@ -111,6 +114,7 @@ container.appendChild(card);
 });
 
 </script>
+
 
 
 </body>
