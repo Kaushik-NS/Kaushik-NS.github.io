@@ -6,201 +6,236 @@
 
 <style>
 
+/* ===== BASE ===== */
+
+html{scroll-behavior:smooth;}
 body{
-font-family:Segoe UI;
 margin:0;
+font-family:Segoe UI;
 background:#0b0f15;
 color:white;
+overflow-x:hidden;
 }
 
-/* HERO */
+/* ===== PARTICLE BACKGROUND ===== */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* ===== HERO ===== */
+
 header{
-background:linear-gradient(180deg,#161b22,#0b0f15);
-padding:70px 20px;
+padding:80px 20px;
+text-align:center;
+background:linear-gradient(180deg,#111826,#0b0f15);
 }
 
-/* HERO FLEX */
-.hero-content{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:60px;
-max-width:1200px;
-margin:auto;
-flex-wrap:wrap;
-}
+h1{font-size:52px;margin:0;}
+h3{color:#8b949e;margin:12px 0;}
 
-/* LEFT TEXT WIDER */
-.hero-text{
-flex:0 0 65%;
-min-width:320px;
-}
+p{color:#c9d1d9;line-height:1.7;}
 
-.hero-text h1{
-font-size:48px;
-margin:0;
-}
-
-.hero-text h3{
-margin:14px 0;
-color:#8b949e;
-}
-
-.hero-text p{
-max-width:680px;
-margin:16px 0;
-line-height:1.7;
-color:#c9d1d9;
-}
-
-/* CONTACT */
 .contact{
-margin-top:10px;
-color:#c9d1d9;
+margin-top:15px;
 display:flex;
+justify-content:center;
 flex-wrap:wrap;
-gap:22px;
+gap:20px;
 font-size:15px;
 }
 
-/* BUTTON */
-.hero-text a{
+/* BUTTONS */
+
+.btn{
 display:inline-block;
-margin-top:24px;
+margin-top:22px;
 padding:14px 28px;
-background:#238636;
 border-radius:8px;
-color:white;
-text-decoration:none;
 font-weight:bold;
+text-decoration:none;
 transition:.25s;
 }
-.hero-text a:hover{
-background:#2ea043;
+
+.btn-green{background:#238636;color:white;}
+.btn-green:hover{background:#2ea043;}
+
+.btn-outline{
+border:2px solid #58a6ff;
+color:#58a6ff;
+}
+.btn-outline:hover{
+background:#58a6ff;
+color:black;
 }
 
-/* BIGGER PHOTO */
+/* PROFILE PIC */
+
+.profile-ring{
+margin:35px auto 0;
+width:230px;
+height:230px;
+border-radius:50%;
+padding:6px;
+background:linear-gradient(45deg,#2ea043,#58a6ff,#2ea043);
+animation:spin 6s linear infinite;
+}
+
+@keyframes spin{
+0%{filter:hue-rotate(0deg);}
+100%{filter:hue-rotate(360deg);}
+}
+
 .profile-pic{
-width:210px;
-height:210px;
+width:100%;
+height:100%;
 border-radius:50%;
 object-fit:cover;
-box-shadow:0 12px 30px rgba(0,0,0,0.6);
-border:4px solid #2ea043;
+background:#111;
 }
 
-/* RIGHT PHOTO SECTION */
-.hero-photo{
-flex:0 0 280px;
-display:flex;
-justify-content:center;
-}
+/* ===== SECTION ===== */
 
-/* SECTION */
 section{
-padding:40px;
-max-width:1200px;
+max-width:1100px;
 margin:auto;
+padding:50px 20px;
 }
+
+h2{margin-bottom:25px;font-size:28px;}
+
+/* ===== SKILLS ===== */
+
+.skill{
+margin:15px 0;
+}
+.bar{
+height:10px;
+background:#222;
+border-radius:10px;
+overflow:hidden;
+}
+.fill{
+height:100%;
+background:#2ea043;
+width:0%;
+transition:1.5s;
+}
+
+/* ===== TIMELINE ===== */
+
+.timeline{
+border-left:3px solid #2ea043;
+padding-left:20px;
+}
+.timeline div{
+margin-bottom:18px;
+}
+
+/* ===== PROJECTS ===== */
+
+.filter{
+margin-bottom:20px;
+}
+.filter button{
+margin-right:10px;
+padding:8px 16px;
+border:none;
+border-radius:6px;
+background:#222;
+color:white;
+cursor:pointer;
+}
+.filter button:hover{background:#2ea043;}
 
 .project{
 background:#161b22;
-border-radius:14px;
 padding:22px;
+border-radius:14px;
 margin:25px 0;
-transition:0.25s;
-box-shadow:0 10px 25px rgba(0,0,0,0.35);
+transition:.3s;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
 }
 
 .project:hover{
-transform:translateY(-4px);
+transform:translateY(-6px);
+box-shadow:0 20px 45px rgba(0,0,0,.6);
 }
 
 .project-content{
 display:flex;
-gap:30px;
+gap:25px;
 align-items:center;
+flex-wrap:wrap;
 }
 
 .project img{
 width:260px;
 border-radius:12px;
 cursor:pointer;
-transition:0.25s;
-}
-.project img:hover{
-transform:scale(1.05);
 }
 
-.project-text{ flex:1; }
-.project-text p{ color:#c9d1d9; }
-
-a{ color:#58a6ff; text-decoration:none; }
+.project-text{flex:1;}
 
 /* VIDEO MODAL */
+
 #videoModal{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.9);
 display:none;
 align-items:center;
 justify-content:center;
 z-index:999;
 }
-
 #videoModal video{
 max-width:85%;
 max-height:85%;
-border-radius:10px;
+border-radius:12px;
 }
 
-/* MOBILE */
-@media(max-width:900px){
+/* BACK TO TOP */
 
-.hero-content{
-flex-direction:column;
-text-align:center;
+#topBtn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#2ea043;
+color:white;
+border:none;
+padding:12px 16px;
+border-radius:8px;
+cursor:pointer;
+display:none;
 }
 
-.hero-text{
-flex:1;
-}
+/* LIGHT MODE */
 
-.hero-photo{
-flex:1;
+.light{
+background:#f5f7fa;
+color:#111;
 }
-
-.project-content{
-flex-direction:column;
-}
-
-.project img{
-width:100%;
-}
-
-}
+.light .project{background:white;color:black;}
 
 </style>
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <header>
 
-<div class="hero-content">
-
-<div class="hero-text">
-
 <h1>Kaushik NS</h1>
-
 <h3>Unity Game Developer | Mobile Games & Interactive Apps</h3>
 
 <p>
 Unity Game Developer with 2+ years of experience building engaging 2D/3D mobile games and interactive applications.
-Focused on gameplay systems, intuitive UI, backend integration, and delivering polished, performance-optimized builds.
+Focused on gameplay systems, intuitive UI, backend integration, and polished builds.
 </p>
 
 <div class="contact">
@@ -209,67 +244,123 @@ Focused on gameplay systems, intuitive UI, backend integration, and delivering p
 <span>✉ kaushiksaravanan1999@gmail.com</span>
 </div>
 
-<a href="https://www.linkedin.com/in/kaushik-ns/" target="_blank">
-🔗 LinkedIn Profile
-</a>
+<a class="btn btn-green" href="https://www.linkedin.com/in/kaushik-ns/" target="_blank">LinkedIn</a>
+<a class="btn btn-outline" href="resume.pdf">Download Resume</a>
 
-</div>
-
-<div class="hero-photo">
+<div class="profile-ring">
 <img src="Kaushik PP1.jpg" class="profile-pic">
-</div>
-
 </div>
 
 </header>
 
 <section>
 
-<h2>Featured Projects</h2>
+<h2>Skills</h2>
+
+<div class="skill">Unity / C#<div class="bar"><div class="fill" style="width:90%"></div></div></div>
+<div class="skill">Gameplay Systems<div class="bar"><div class="fill" style="width:85%"></div></div></div>
+<div class="skill">Firebase / Backend<div class="bar"><div class="fill" style="width:75%"></div></div></div>
+
+</section>
+
+<section>
+
+<h2>Experience</h2>
+<div class="timeline">
+<div><b>PlatypusBox — Unity Developer</b><br>Oct 2023 – Present</div>
+<div>Developed mobile games, backend integration, monetization, UI systems.</div>
+</div>
+
+</section>
+
+<section>
+
+<h2>Projects</h2>
+
+<div class="filter">
+<button onclick="loadProjects()">All</button>
+</div>
+
 <div id="projects"></div>
 
 </section>
 
-<!-- VIDEO POPUP -->
 <div id="videoModal" onclick="closeVideo()">
 <video id="modalVideo" controls autoplay></video>
 </div>
 
+<button id="topBtn" onclick="window.scrollTo(0,0)">↑</button>
+
 <script>
+
+/* ===== PARTICLE BACKGROUND ===== */
+
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<60;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+dx:(Math.random()-0.5),
+dy:(Math.random()-0.5)
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#2ea043";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.x+=p.dx;
+p.y+=p.dy;
+});
+requestAnimationFrame(draw);
+}
+draw();
+
+/* ===== LOAD GITHUB ===== */
+
+function loadProjects(){
 
 const username="Kaushik-NS";
 
 fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-.then(res=>res.json())
+.then(r=>r.json())
 .then(data=>{
 
 const container=document.getElementById("projects");
+container.innerHTML="";
 
 data.forEach(repo=>{
 
 if(repo.fork) return;
 
-const imageUrl=
+const image=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
 
-const videoUrl=
+const video=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
 
 const card=document.createElement("div");
 card.className="project";
 
 card.innerHTML=`
-
 <div class="project-content">
 
-<img src="${imageUrl}" 
-onerror="this.style.display='none'"
-onclick="playVideo('${videoUrl}')">
+<img src="${image}" onerror="this.style.display='none'" onclick="playVideo('${video}')">
 
 <div class="project-text">
 <h3>${repo.name}</h3>
-<p>${repo.description || "No description provided."}</p>
-<p><b>Language:</b> ${repo.language || "N/A"}</p>
+<p>${repo.description||"No description provided."}</p>
+<p><b>Language:</b> ${repo.language||"N/A"}</p>
 <a href="${repo.html_url}" target="_blank">View Repository</a>
 </div>
 
@@ -281,21 +372,29 @@ container.appendChild(card);
 });
 
 });
+}
+
+loadProjects();
+
+/* ===== VIDEO ===== */
 
 function playVideo(url){
-const modal=document.getElementById("videoModal");
-const video=document.getElementById("modalVideo");
-video.src=url;
-modal.style.display="flex";
+document.getElementById("modalVideo").src=url;
+document.getElementById("videoModal").style.display="flex";
+}
+function closeVideo(){
+const v=document.getElementById("modalVideo");
+v.pause();
+v.src="";
+document.getElementById("videoModal").style.display="none";
 }
 
-function closeVideo(){
-const modal=document.getElementById("videoModal");
-const video=document.getElementById("modalVideo");
-video.pause();
-video.src="";
-modal.style.display="none";
-}
+/* ===== TOP BUTTON ===== */
+
+window.onscroll=()=>{
+document.getElementById("topBtn").style.display=
+window.scrollY>400?"block":"none";
+};
 
 </script>
 
