@@ -60,8 +60,8 @@ font-weight:bold;
 
 /* PROFILE PIC */
 .profile{
-width:180px;
-height:180px;
+width:200px;
+height:200px;
 border-radius:50%;
 object-fit:cover;
 border:5px solid #58a6ff;
@@ -85,18 +85,18 @@ margin:28px 0;
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* FLEX CONTENT */
+/* CARD LAYOUT */
 .project-content{
 display:flex;
 gap:30px;
 align-items:center;
 }
 
-/* MEDIA SIDE */
+/* MEDIA SIDE (IMAGE + VIDEO HORIZONTAL) */
 .project-media{
 display:flex;
-flex-direction:row;   /* SIDE BY SIDE */
-gap:14px;
+flex-direction:row;
+gap:15px;
 align-items:center;
 }
 
@@ -108,6 +108,12 @@ object-fit:cover;
 border-radius:12px;
 cursor:pointer;
 background:black;
+transition:0.25s;
+}
+
+.project-media img:hover,
+.project-media video:hover{
+transform:scale(1.05);
 }
 
 /* TEXT SIDE */
@@ -129,7 +135,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.85);
+background:rgba(0,0,0,0.9);
 display:none;
 align-items:center;
 justify-content:center;
@@ -187,18 +193,16 @@ Focused on gameplay systems, intuitive UI, backend integration, and delivering p
 
 <div style="margin-top:20px; display:flex; gap:15px; flex-wrap:wrap;">
 
-<a href="https://www.linkedin.com/in/kaushik-ns/" target="_blank"
-style="padding:12px 24px;background:#238636;border-radius:8px;color:white;text-decoration:none;font-weight:bold;">
+<a href="https://www.linkedin.com/in/kaushik-ns/" target="_blank">
 LinkedIn
 </a>
 
 <a href="resume.pdf" download
-style="padding:12px 24px;border:2px solid #58a6ff;border-radius:8px;color:#58a6ff;text-decoration:none;font-weight:bold;">
+style="background:transparent;border:2px solid #58a6ff;color:#58a6ff;">
 Download Resume
 </a>
 
 </div>
-
 
 </div>
 
@@ -217,55 +221,51 @@ Download Resume
 
 <!-- VIDEO POPUP -->
 <div id="videoModal" onclick="closeVideo()">
-<video id="modalVideo" controls></video>
+<video id="modalVideo" controls autoplay></video>
 </div>
 
 <script>
 
-const username = "Kaushik-NS";
+const username="Kaushik-NS";
 
-/* ONLY THESE REPOS WILL SHOW */
-const featuredRepos = [
-  "PAC_MAN3D",
-  "Save-The-Earth",
-  "COLORSHOT"
+/* SHOW ONLY THESE */
+const featuredRepos=[
+"PAC_MAN3D",
+"Save-The-Earth",
+"COLORSHOT"
 ];
 
 fetch(`https://api.github.com/users/${username}/repos`)
-.then(res => res.json())
-.then(data => {
+.then(res=>res.json())
+.then(data=>{
 
-const container = document.getElementById("projects");
+const container=document.getElementById("projects");
 
-/* filter only selected repos */
-const filtered = data.filter(repo => featuredRepos.includes(repo.name));
+const filtered=data
+.filter(repo=>featuredRepos.includes(repo.name))
+.sort((a,b)=>featuredRepos.indexOf(a.name)-featuredRepos.indexOf(b.name));
 
-/* keep order same as list above */
-filtered.sort((a,b)=>featuredRepos.indexOf(a.name)-featuredRepos.indexOf(b.name));
+filtered.forEach(repo=>{
 
-filtered.forEach(repo => {
-
-const imageUrl =
+const imageUrl=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
 
-const videoUrl =
+const videoUrl=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
 
-const card = document.createElement("div");
-card.className = "project";
+const card=document.createElement("div");
+card.className="project";
 
-card.innerHTML = `
+card.innerHTML=`
 
 <div class="project-content">
 
-<div style="display:flex;flex-direction:column;gap:10px">
+<div class="project-media">
 
-<img src="${imageUrl}" 
-onerror="this.style.display='none'"
-style="width:260px;border-radius:10px">
+<img src="${imageUrl}"
+onerror="this.style.display='none'">
 
 <video autoplay muted loop playsinline
-style="width:260px;border-radius:10px"
 onclick="playVideo('${videoUrl}')"
 onerror="this.style.display='none'">
 <source src="${videoUrl}" type="video/mp4">
@@ -288,6 +288,22 @@ container.appendChild(card);
 });
 
 });
+
+function playVideo(url){
+const modal=document.getElementById("videoModal");
+const video=document.getElementById("modalVideo");
+video.src=url;
+video.muted=false;
+modal.style.display="flex";
+}
+
+function closeVideo(){
+const modal=document.getElementById("videoModal");
+const video=document.getElementById("modalVideo");
+video.pause();
+video.src="";
+modal.style.display="none";
+}
 
 </script>
 
