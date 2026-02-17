@@ -14,106 +14,113 @@ color:white;
 }
 
 /* HERO */
-.hero{
+header{
 background:linear-gradient(180deg,#161b22,#0b0f15);
-padding:70px 20px;
+padding:70px 40px;
 }
 
-.hero-content{
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
 max-width:1200px;
 margin:auto;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:50px;
+gap:40px;
 }
 
-.hero-text{flex:1.4;}
+.hero-text{flex:1.5;}
 
-.hero-text h1{font-size:44px;margin:0;}
-.hero-text h3{margin:12px 0;color:#8b949e;}
+.hero h1{font-size:44px;margin:0;}
+.hero h3{color:#8b949e;margin:12px 0;}
 
-.hero-text p{
-max-width:700px;
-line-height:1.6;
+.hero p{
 color:#c9d1d9;
+line-height:1.6;
+max-width:600px;
 }
 
 .contact{
-margin-top:16px;
-display:flex;
-flex-wrap:wrap;
-gap:18px;
+margin-top:15px;
 color:#c9d1d9;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
 }
 
-.hero-text a{
+.hero a{
 display:inline-block;
-margin-top:22px;
-padding:12px 26px;
+margin-top:20px;
+padding:12px 24px;
 background:#238636;
-border-radius:10px;
+border-radius:8px;
 color:white;
 text-decoration:none;
 font-weight:bold;
 }
 
-.profile-pic{
-width:210px;
-height:210px;
+/* PROFILE PIC */
+.profile{
+width:180px;
+height:180px;
 border-radius:50%;
 object-fit:cover;
-border:4px solid #2ea043;
-box-shadow:0 15px 40px rgba(0,0,0,.55);
+border:5px solid #58a6ff;
 }
 
 /* SECTION */
 section{
-padding:50px 20px;
+padding:50px;
 max-width:1200px;
 margin:auto;
 }
 
+h2{margin-bottom:20px;}
+
 /* PROJECT CARD */
 .project{
 background:#161b22;
-border-radius:16px;
-padding:26px;
+border-radius:14px;
+padding:24px;
 margin:28px 0;
-box-shadow:0 15px 40px rgba(0,0,0,.4);
-transition:0.25s;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
-.project:hover{transform:translateY(-4px);}
 
+/* FLEX CONTENT */
 .project-content{
 display:flex;
-gap:35px;
+gap:30px;
 align-items:center;
 }
 
+/* MEDIA SIDE */
 .project-media{
 display:flex;
-flex-direction:column;
+flex-direction:row;   /* SIDE BY SIDE */
 gap:14px;
+align-items:center;
 }
 
-.project-media img{
-width:260px;
-border-radius:12px;
-cursor:pointer;
-}
-
+.project-media img,
 .project-media video{
 width:260px;
+height:160px;
+object-fit:cover;
 border-radius:12px;
-background:black;
 cursor:pointer;
+background:black;
 }
 
-.project-text{flex:1;}
+/* TEXT SIDE */
+.project-text{
+flex:1;
+}
+
 .project-text p{color:#c9d1d9;}
 
-a{color:#58a6ff;text-decoration:none;}
+a{
+color:#58a6ff;
+text-decoration:none;
+}
 
 /* VIDEO MODAL */
 #videoModal{
@@ -122,41 +129,33 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.9);
+background:rgba(0,0,0,0.85);
 display:none;
 align-items:center;
 justify-content:center;
-z-index:9999;
+z-index:999;
 }
 
-.video-box{
+#videoModal video{
 max-width:85%;
 max-height:85%;
-}
-
-.video-box video{
-width:100%;
 border-radius:12px;
-box-shadow:0 20px 60px rgba(0,0,0,.8);
 }
 
 /* MOBILE */
 @media(max-width:900px){
 
-.hero-content{
-flex-direction:column-reverse;
+.hero{
+flex-direction:column;
 text-align:center;
 }
-
-.contact{justify-content:center;}
 
 .project-content{
 flex-direction:column;
 }
 
-.project-media img,
-.project-media video{
-width:100%;
+.project-media{
+flex-direction:column;
 }
 
 }
@@ -166,14 +165,13 @@ width:100%;
 
 <body>
 
-<header class="hero">
+<header>
 
-<div class="hero-content">
+<div class="hero">
 
 <div class="hero-text">
 
 <h1>Kaushik NS</h1>
-
 <h3>Unity Game Developer | Mobile Games & Interactive Apps</h3>
 
 <p>
@@ -187,18 +185,15 @@ Focused on gameplay systems, intuitive UI, backend integration, and delivering p
 <span>✉ kaushiksaravanan1999@gmail.com</span>
 </div>
 
-<a href="https://www.linkedin.com/in/kaushik-ns/" target="_blank">
-🔗 LinkedIn Profile
-</a>
+<a href="https://www.linkedin.com/in/kaushik-ns/" target="_blank">LinkedIn Profile</a>
 
 </div>
 
-<img src="Kaushik PP1.jpg" class="profile-pic">
+<img src="Kaushik PP1.jpg" class="profile">
 
 </div>
 
 </header>
-
 
 <section>
 
@@ -207,14 +202,10 @@ Focused on gameplay systems, intuitive UI, backend integration, and delivering p
 
 </section>
 
-
 <!-- VIDEO POPUP -->
-<div id="videoModal" onclick="closeVideo(event)">
-  <div class="video-box">
-    <video id="modalVideo" controls autoplay></video>
-  </div>
+<div id="videoModal" onclick="closeVideo()">
+<video id="modalVideo" controls></video>
 </div>
-
 
 <script>
 
@@ -230,10 +221,13 @@ data.forEach(repo=>{
 
 if(repo.fork) return;
 
-const image=
+// optional: hide portfolio repo itself
+if(repo.name==="Kaushik-NS.github.io") return;
+
+const imageUrl=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
 
-const video=
+const videoUrl=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
 
 const card=document.createElement("div");
@@ -245,17 +239,13 @@ card.innerHTML=`
 
 <div class="project-media">
 
-<img src="${image}"
-onclick="openVideo('${video}')"
-onerror="this.style.display='none'">
+<img src="${imageUrl}"
+onerror="this.style.display='none'"
+onclick="playVideo('${videoUrl}')">
 
-<video muted loop playsinline autoplay preload="metadata"
-onclick="openVideo('${video}')"
-onerror="this.style.display='none'">
-
-<source src="${video}" type="video/mp4">
-
-</video>
+<video src="${videoUrl}" muted autoplay loop playsinline
+onerror="this.style.display='none'"
+onclick="playVideo('${videoUrl}')"></video>
 
 </div>
 
@@ -275,24 +265,21 @@ container.appendChild(card);
 
 });
 
-
-function openVideo(url){
+function playVideo(url){
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
-
 video.src=url;
 video.muted=false;
+video.play();
 modal.style.display="flex";
 }
 
-function closeVideo(e){
-if(e.target.id==="videoModal"){
+function closeVideo(){
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
 video.pause();
 video.src="";
 modal.style.display="none";
-}
 }
 
 </script>
