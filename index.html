@@ -75,15 +75,32 @@ const container = document.getElementById("projects");
 
 data.forEach(repo => {
 
-if(repo.fork) return; // skip forks
+if(repo.fork) return;
+
+const imageUrl =
+`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
+
+const gifUrl =
+`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.gif`;
 
 const card = document.createElement("div");
 card.className = "project";
 
 card.innerHTML = `
 <h3>${repo.name}</h3>
+
+<img src="${imageUrl}" 
+     style="width:100%;border-radius:10px;margin:10px 0"
+     onerror="this.style.display='none'">
+
 <p>${repo.description || "No description provided."}</p>
+
+<img src="${gifUrl}" 
+     style="width:100%;border-radius:10px;margin:10px 0"
+     onerror="this.style.display='none'">
+
 <p><b>Language:</b> ${repo.language || "N/A"}</p>
+
 <a href="${repo.html_url}" target="_blank">View Repository</a>
 `;
 
@@ -94,6 +111,7 @@ container.appendChild(card);
 });
 
 </script>
+
 
 </body>
 </html>
