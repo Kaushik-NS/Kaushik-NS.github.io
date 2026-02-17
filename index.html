@@ -222,43 +222,54 @@ Download Resume
 
 <script>
 
-const username="Kaushik-NS";
+const username = "Kaushik-NS";
 
-fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-.then(res=>res.json())
-.then(data=>{
+/* ONLY THESE REPOS WILL SHOW */
+const featuredRepos = [
+  "PAC_MAN3D",
+  "YourScannerAppRepo",
+  "VoucherUnityApp"
+];
 
-const container=document.getElementById("projects");
+fetch(`https://api.github.com/users/${username}/repos`)
+.then(res => res.json())
+.then(data => {
 
-data.forEach(repo=>{
+const container = document.getElementById("projects");
 
-if(repo.fork) return;
+/* filter only selected repos */
+const filtered = data.filter(repo => featuredRepos.includes(repo.name));
 
-// optional: hide portfolio repo itself
-if(repo.name==="Kaushik-NS.github.io") return;
+/* keep order same as list above */
+filtered.sort((a,b)=>featuredRepos.indexOf(a.name)-featuredRepos.indexOf(b.name));
 
-const imageUrl=
+filtered.forEach(repo => {
+
+const imageUrl =
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
 
-const videoUrl=
+const videoUrl =
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
 
-const card=document.createElement("div");
-card.className="project";
+const card = document.createElement("div");
+card.className = "project";
 
-card.innerHTML=`
+card.innerHTML = `
 
 <div class="project-content">
 
-<div class="project-media">
+<div style="display:flex;flex-direction:column;gap:10px">
 
-<img src="${imageUrl}"
+<img src="${imageUrl}" 
 onerror="this.style.display='none'"
-onclick="playVideo('${videoUrl}')">
+style="width:260px;border-radius:10px">
 
-<video src="${videoUrl}" muted autoplay loop playsinline
-onerror="this.style.display='none'"
-onclick="playVideo('${videoUrl}')"></video>
+<video autoplay muted loop playsinline
+style="width:260px;border-radius:10px"
+onclick="playVideo('${videoUrl}')"
+onerror="this.style.display='none'">
+<source src="${videoUrl}" type="video/mp4">
+</video>
 
 </div>
 
@@ -277,23 +288,6 @@ container.appendChild(card);
 });
 
 });
-
-function playVideo(url){
-const modal=document.getElementById("videoModal");
-const video=document.getElementById("modalVideo");
-video.src=url;
-video.muted=false;
-video.play();
-modal.style.display="flex";
-}
-
-function closeVideo(){
-const modal=document.getElementById("videoModal");
-const video=document.getElementById("modalVideo");
-video.pause();
-video.src="";
-modal.style.display="none";
-}
 
 </script>
 
