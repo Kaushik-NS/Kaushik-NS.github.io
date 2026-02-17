@@ -6,62 +6,104 @@
 
 <style>
 
-/* ===== BASE ===== */
+html{
+scroll-behavior:smooth;
+}
 
-html{scroll-behavior:smooth;}
 body{
-margin:0;
 font-family:Segoe UI;
+margin:0;
 background:#0b0f15;
 color:white;
 overflow-x:hidden;
 }
 
-/* ===== PARTICLE BACKGROUND ===== */
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
-/* ===== HERO ===== */
+/* ---------- HERO ---------- */
 
 header{
+background:linear-gradient(270deg,#0b0f15,#161b22,#0b0f15);
+background-size:600% 600%;
+animation:bgMove 12s ease infinite;
 padding:80px 20px;
-text-align:center;
-background:linear-gradient(180deg,#111826,#0b0f15);
 }
 
-h1{font-size:52px;margin:0;}
-h3{color:#8b949e;margin:12px 0;}
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
 
-p{color:#c9d1d9;line-height:1.7;}
+.hero-content{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:70px;
+max-width:1200px;
+margin:auto;
+flex-wrap:wrap;
+}
+
+.hero-text{
+flex:0 0 65%;
+min-width:320px;
+}
+
+.hero-text h1{
+font-size:52px;
+margin:0;
+}
+
+.hero-text h3{
+margin:14px 0;
+color:#8b949e;
+font-weight:500;
+}
+
+/* typing cursor */
+.cursor{
+border-right:3px solid #58a6ff;
+padding-right:4px;
+animation:blink 1s infinite;
+}
+@keyframes blink{
+0%,100%{border-color:transparent}
+50%{border-color:#58a6ff}
+}
+
+.hero-text p{
+max-width:700px;
+margin:18px 0;
+line-height:1.7;
+color:#c9d1d9;
+}
+
+/* CONTACT */
 
 .contact{
-margin-top:15px;
+margin-top:10px;
 display:flex;
-justify-content:center;
 flex-wrap:wrap;
-gap:20px;
+gap:22px;
 font-size:15px;
+color:#c9d1d9;
 }
 
 /* BUTTONS */
 
-.btn{
+.hero-buttons a{
 display:inline-block;
-margin-top:22px;
+margin-top:24px;
+margin-right:12px;
 padding:14px 28px;
 border-radius:8px;
-font-weight:bold;
+color:white;
 text-decoration:none;
+font-weight:bold;
 transition:.25s;
 }
 
-.btn-green{background:#238636;color:white;}
-.btn-green:hover{background:#2ea043;}
+.btn-primary{ background:#238636; }
+.btn-primary:hover{ background:#2ea043; }
 
 .btn-outline{
 border:2px solid #58a6ff;
@@ -72,170 +114,148 @@ background:#58a6ff;
 color:black;
 }
 
-/* PROFILE PIC */
+/* PROFILE PIC PREMIUM */
 
-.profile-ring{
-margin:35px auto 0;
-width:230px;
-height:230px;
-border-radius:50%;
-padding:6px;
-background:linear-gradient(45deg,#2ea043,#58a6ff,#2ea043);
-animation:spin 6s linear infinite;
+.hero-photo{
+flex:0 0 280px;
+display:flex;
+justify-content:center;
 }
 
-@keyframes spin{
-0%{filter:hue-rotate(0deg);}
-100%{filter:hue-rotate(360deg);}
+.profile-ring{
+padding:6px;
+border-radius:50%;
+background:linear-gradient(45deg,#2ea043,#58a6ff,#2ea043);
+background-size:300% 300%;
+animation:ringMove 5s linear infinite;
+}
+
+@keyframes ringMove{
+0%{background-position:0%}
+100%{background-position:300%}
 }
 
 .profile-pic{
-width:100%;
-height:100%;
+width:220px;
+height:220px;
 border-radius:50%;
 object-fit:cover;
+display:block;
 background:#111;
 }
 
-/* ===== SECTION ===== */
+/* ---------- SECTION ---------- */
 
 section{
-max-width:1100px;
-margin:auto;
 padding:50px 20px;
+max-width:1200px;
+margin:auto;
 }
 
-h2{margin-bottom:25px;font-size:28px;}
-
-/* ===== SKILLS ===== */
-
-.skill{
-margin:15px 0;
-}
-.bar{
-height:10px;
-background:#222;
-border-radius:10px;
-overflow:hidden;
-}
-.fill{
-height:100%;
-background:#2ea043;
-width:0%;
-transition:1.5s;
-}
-
-/* ===== TIMELINE ===== */
-
-.timeline{
-border-left:3px solid #2ea043;
-padding-left:20px;
-}
-.timeline div{
-margin-bottom:18px;
-}
-
-/* ===== PROJECTS ===== */
-
-.filter{
+h2{
 margin-bottom:20px;
+font-size:28px;
 }
-.filter button{
-margin-right:10px;
-padding:8px 16px;
-border:none;
-border-radius:6px;
-background:#222;
-color:white;
-cursor:pointer;
-}
-.filter button:hover{background:#2ea043;}
+
+/* ---------- PROJECT CARDS ---------- */
 
 .project{
-background:#161b22;
-padding:22px;
-border-radius:14px;
-margin:25px 0;
-transition:.3s;
-box-shadow:0 10px 25px rgba(0,0,0,.4);
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border-radius:18px;
+padding:26px;
+margin:28px 0;
+transition:0.3s;
+box-shadow:0 20px 40px rgba(0,0,0,0.35);
 }
 
 .project:hover{
-transform:translateY(-6px);
-box-shadow:0 20px 45px rgba(0,0,0,.6);
+transform:translateY(-6px) scale(1.01);
+box-shadow:0 30px 60px rgba(0,0,0,0.55);
 }
 
 .project-content{
 display:flex;
-gap:25px;
+gap:30px;
 align-items:center;
-flex-wrap:wrap;
 }
 
 .project img{
-width:260px;
-border-radius:12px;
+width:270px;
+border-radius:14px;
 cursor:pointer;
+transition:.25s;
+}
+.project img:hover{
+transform:scale(1.05);
 }
 
-.project-text{flex:1;}
+.project-text{ flex:1; }
+.project-text p{ color:#c9d1d9; }
 
-/* VIDEO MODAL */
+a{ color:#58a6ff; text-decoration:none; }
+
+/* ---------- VIDEO MODAL ---------- */
 
 #videoModal{
 position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,.9);
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.88);
 display:none;
 align-items:center;
 justify-content:center;
 z-index:999;
 }
+
 #videoModal video{
 max-width:85%;
 max-height:85%;
-border-radius:12px;
+border-radius:14px;
 }
 
-/* BACK TO TOP */
+/* ---------- MOBILE ---------- */
 
-#topBtn{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#2ea043;
-color:white;
-border:none;
-padding:12px 16px;
-border-radius:8px;
-cursor:pointer;
-display:none;
+@media(max-width:900px){
+
+.hero-content{
+flex-direction:column;
+text-align:center;
 }
 
-/* LIGHT MODE */
+.hero-text{ flex:1; }
+.hero-photo{ flex:1; }
 
-.light{
-background:#f5f7fa;
-color:#111;
+.project-content{
+flex-direction:column;
 }
-.light .project{background:white;color:black;}
+
+.project img{
+width:100%;
+}
+
+}
 
 </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-
 <header>
 
+<div class="hero-content">
+
+<div class="hero-text">
+
 <h1>Kaushik NS</h1>
-<h3>Unity Game Developer | Mobile Games & Interactive Apps</h3>
+
+<h3><span id="typing"></span><span class="cursor"></span></h3>
 
 <p>
 Unity Game Developer with 2+ years of experience building engaging 2D/3D mobile games and interactive applications.
-Focused on gameplay systems, intuitive UI, backend integration, and polished builds.
+Focused on gameplay systems, intuitive UI, backend integration, and delivering polished, performance-optimized builds.
 </p>
 
 <div class="contact">
@@ -244,123 +264,85 @@ Focused on gameplay systems, intuitive UI, backend integration, and polished bui
 <span>✉ kaushiksaravanan1999@gmail.com</span>
 </div>
 
-<a class="btn btn-green" href="https://www.linkedin.com/in/kaushik-ns/" target="_blank">LinkedIn</a>
-<a class="btn btn-outline" href="resume.pdf">Download Resume</a>
+<div class="hero-buttons">
+<a class="btn-primary" href="https://www.linkedin.com/in/kaushik-ns/" target="_blank">LinkedIn</a>
+<a class="btn-outline" href="resume.pdf" target="_blank">Download Resume</a>
+</div>
 
+</div>
+
+<div class="hero-photo">
 <div class="profile-ring">
 <img src="Kaushik PP1.jpg" class="profile-pic">
+</div>
+</div>
+
 </div>
 
 </header>
 
 <section>
 
-<h2>Skills</h2>
-
-<div class="skill">Unity / C#<div class="bar"><div class="fill" style="width:90%"></div></div></div>
-<div class="skill">Gameplay Systems<div class="bar"><div class="fill" style="width:85%"></div></div></div>
-<div class="skill">Firebase / Backend<div class="bar"><div class="fill" style="width:75%"></div></div></div>
-
-</section>
-
-<section>
-
-<h2>Experience</h2>
-<div class="timeline">
-<div><b>PlatypusBox — Unity Developer</b><br>Oct 2023 – Present</div>
-<div>Developed mobile games, backend integration, monetization, UI systems.</div>
-</div>
-
-</section>
-
-<section>
-
-<h2>Projects</h2>
-
-<div class="filter">
-<button onclick="loadProjects()">All</button>
-</div>
-
+<h2>Featured Projects</h2>
 <div id="projects"></div>
 
 </section>
 
+<!-- VIDEO POPUP -->
 <div id="videoModal" onclick="closeVideo()">
 <video id="modalVideo" controls autoplay></video>
 </div>
 
-<button id="topBtn" onclick="window.scrollTo(0,0)">↑</button>
-
 <script>
 
-/* ===== PARTICLE BACKGROUND ===== */
+/* -------- TYPING TITLE -------- */
 
-const canvas=document.getElementById("bg");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<60;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-dx:(Math.random()-0.5),
-dy:(Math.random()-0.5)
-});
+const text="Unity Game Developer | Mobile Games & Interactive Apps";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,30);
 }
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="#2ea043";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.x+=p.dx;
-p.y+=p.dy;
-});
-requestAnimationFrame(draw);
 }
-draw();
+type();
 
-/* ===== LOAD GITHUB ===== */
-
-function loadProjects(){
+/* -------- LOAD GITHUB PROJECTS -------- */
 
 const username="Kaushik-NS";
 
 fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-.then(r=>r.json())
+.then(res=>res.json())
 .then(data=>{
 
 const container=document.getElementById("projects");
-container.innerHTML="";
 
 data.forEach(repo=>{
 
 if(repo.fork) return;
 
-const image=
+const imageUrl=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
 
-const video=
+const videoUrl=
 `https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
 
 const card=document.createElement("div");
 card.className="project";
 
 card.innerHTML=`
+
 <div class="project-content">
 
-<img src="${image}" onerror="this.style.display='none'" onclick="playVideo('${video}')">
+<img src="${imageUrl}"
+onerror="this.style.display='none'"
+onclick="playVideo('${videoUrl}')">
 
 <div class="project-text">
 <h3>${repo.name}</h3>
-<p>${repo.description||"No description provided."}</p>
-<p><b>Language:</b> ${repo.language||"N/A"}</p>
+<p>${repo.description || "No description provided."}</p>
+<p><b>Language:</b> ${repo.language || "N/A"}</p>
 <a href="${repo.html_url}" target="_blank">View Repository</a>
 </div>
 
@@ -372,29 +354,23 @@ container.appendChild(card);
 });
 
 });
-}
 
-loadProjects();
-
-/* ===== VIDEO ===== */
+/* -------- VIDEO POPUP -------- */
 
 function playVideo(url){
-document.getElementById("modalVideo").src=url;
-document.getElementById("videoModal").style.display="flex";
+const modal=document.getElementById("videoModal");
+const video=document.getElementById("modalVideo");
+video.src=url;
+modal.style.display="flex";
 }
+
 function closeVideo(){
-const v=document.getElementById("modalVideo");
-v.pause();
-v.src="";
-document.getElementById("videoModal").style.display="none";
+const modal=document.getElementById("videoModal");
+const video=document.getElementById("modalVideo");
+video.pause();
+video.src="";
+modal.style.display="none";
 }
-
-/* ===== TOP BUTTON ===== */
-
-window.onscroll=()=>{
-document.getElementById("topBtn").style.display=
-window.scrollY>400?"block":"none";
-};
 
 </script>
 
