@@ -28,9 +28,7 @@ justify-content:space-between;
 gap:50px;
 }
 
-.hero-text{
-flex:1.4;
-}
+.hero-text{flex:1.4;}
 
 .hero-text h1{font-size:44px;margin:0;}
 .hero-text h3{margin:12px 0;color:#8b949e;}
@@ -96,17 +94,22 @@ align-items:center;
 .project-media{
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:14px;
 }
 
-.project-media img,
-.project-media video{
+.project-media img{
 width:260px;
 border-radius:12px;
 cursor:pointer;
 }
 
-/* TEXT */
+.project-media video{
+width:260px;
+border-radius:12px;
+background:black;
+cursor:pointer;
+}
+
 .project-text{flex:1;}
 .project-text p{color:#c9d1d9;}
 
@@ -246,10 +249,12 @@ card.innerHTML=`
 onclick="openVideo('${video}')"
 onerror="this.style.display='none'">
 
-<video src="${video}"
-autoplay muted loop playsinline
+<video muted loop playsinline autoplay preload="metadata"
 onclick="openVideo('${video}')"
 onerror="this.style.display='none'">
+
+<source src="${video}" type="video/mp4">
+
 </video>
 
 </div>
@@ -276,23 +281,18 @@ const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
 
 video.src=url;
-video.muted=false;   // SOUND ON
+video.muted=false;
 modal.style.display="flex";
 }
 
 function closeVideo(e){
-
 if(e.target.id==="videoModal"){
-
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
-
 video.pause();
 video.src="";
 modal.style.display="none";
-
 }
-
 }
 
 </script>
