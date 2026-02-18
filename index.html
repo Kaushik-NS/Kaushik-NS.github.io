@@ -217,6 +217,7 @@ Download Resume
 
 const username="Kaushik-NS";
 
+/* SHOW ONLY THESE PROJECTS */
 const featuredRepos=[
 "PAC_MAN3D",
 "Save-The-Earth",
@@ -229,6 +230,7 @@ fetch(`https://api.github.com/users/${username}/repos`)
 
 const container=document.getElementById("projects");
 
+/* filter & keep order */
 const filtered=data
 .filter(repo=>featuredRepos.includes(repo.name))
 .sort((a,b)=>featuredRepos.indexOf(a.name)-featuredRepos.indexOf(b.name));
@@ -241,55 +243,77 @@ const videoUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/main/
 const card=document.createElement("div");
 card.className="project";
 
-card.innerHTML=`
+/* --- MEDIA SECTION --- */
+const media=document.createElement("div");
+media.className="project-media";
 
-<div class="project-content">
+/* IMAGE (always shown if exists) */
+const img=document.createElement("img");
+img.src=imageUrl;
+img.alt=repo.name;
+img.onerror=()=>img.remove();
+media.appendChild(img);
 
-<div class="project-media">
+/* VIDEO (shown only if exists) */
+const video=document.createElement("video");
+video.src=videoUrl;
+video.autoplay=true;
+video.muted=true;     // required for autoplay
+video.loop=true;
+video.playsInline=true;
 
-<img src="${imageUrl}" onerror="this.remove()">
+video.onloadeddata=()=>{
+video.onclick=()=>playVideo(videoUrl);
+media.appendChild(video);
+};
 
-<video autoplay muted loop playsinline
-onclick="playVideo('${videoUrl}')"
-onerror="this.remove()">
-<source src="${videoUrl}" type="video/mp4">
-</video>
-
-</div>
-
-<div class="project-text">
+/* --- TEXT SECTION --- */
+const text=document.createElement("div");
+text.className="project-text";
+text.innerHTML=`
 <h3>${repo.name}</h3>
 <p>${repo.description || "No description provided."}</p>
 <p><b>Language:</b> ${repo.language || "N/A"}</p>
 <a href="${repo.html_url}" target="_blank">View Repository</a>
-</div>
-
-</div>
 `;
 
+/* --- LAYOUT --- */
+const content=document.createElement("div");
+content.className="project-content";
+
+content.appendChild(media);
+content.appendChild(text);
+
+card.appendChild(content);
 container.appendChild(card);
 
 });
 
 });
 
+/* POPUP VIDEO WITH SOUND */
 function playVideo(url){
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
+
 video.src=url;
-video.muted=false;
+video.muted=false;    // sound ON in popup
+video.play();
+
 modal.style.display="flex";
 }
 
 function closeVideo(){
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
+
 video.pause();
 video.src="";
 modal.style.display="none";
 }
 
 </script>
+
 
 </body>
 </html>
