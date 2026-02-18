@@ -235,82 +235,65 @@ const filtered=data
 
 filtered.forEach(repo=>{
 
-const imageUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
-const videoUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
+const branch = repo.default_branch;   // auto main/master
+const imageUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/portfolio/thumbnail.png`;
+const videoUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/portfolio/demo.mp4`;
 
 const card=document.createElement("div");
 card.className="project";
 
-const content=document.createElement("div");
-content.className="project-content";
+card.innerHTML=`
+<div class="project-content">
 
-/* -------- MEDIA -------- */
-const media=document.createElement("div");
-media.className="project-media";
+<div class="project-media">
 
-/* IMAGE */
-const img=document.createElement("img");
-img.src=imageUrl;
-img.alt=repo.name;
-img.onerror=()=>img.style.display="none";   // hide only if image missing
-media.appendChild(img);
+<img src="${imageUrl}" 
+alt="${repo.name}"
+onerror="this.style.display='none'">
 
-/* VIDEO (optional) */
-const video=document.createElement("video");
-video.src=videoUrl;
-video.autoplay=true;
-video.muted=true;
-video.loop=true;
-video.playsInline=true;
+<video autoplay muted loop playsinline
+onclick="playVideo('${videoUrl}')"
+onerror="this.style.display='none'">
+<source src="${videoUrl}" type="video/mp4">
+</video>
 
-/* only add video if file exists */
-video.onloadeddata=()=>{
-video.onclick=()=>playVideo(videoUrl);
-media.appendChild(video);
-};
+</div>
 
-/* -------- TEXT -------- */
-const text=document.createElement("div");
-text.className="project-text";
-
-text.innerHTML=`
+<div class="project-text">
 <h3>${repo.name}</h3>
 <p>${repo.description || "No description provided."}</p>
 <p><b>Language:</b> ${repo.language || "N/A"}</p>
 <a href="${repo.html_url}" target="_blank">View Repository</a>
+</div>
+
+</div>
 `;
 
-content.appendChild(media);
-content.appendChild(text);
-card.appendChild(content);
 container.appendChild(card);
 
 });
 
 });
 
-/* POPUP VIDEO WITH SOUND */
 function playVideo(url){
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
-
 video.src=url;
 video.muted=false;
 video.play();
-
 modal.style.display="flex";
 }
 
 function closeVideo(){
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
-
 video.pause();
 video.src="";
 modal.style.display="none";
 }
 
 </script>
+
 
 
 
