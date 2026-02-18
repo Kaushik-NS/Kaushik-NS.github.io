@@ -85,14 +85,13 @@ margin:28px 0;
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* CARD LAYOUT */
 .project-content{
 display:flex;
 gap:30px;
 align-items:center;
 }
 
-/* MEDIA SIDE (IMAGE + VIDEO HORIZONTAL) */
+/* MEDIA SIDE */
 .project-media{
 display:flex;
 flex-direction:row;
@@ -117,16 +116,10 @@ transform:scale(1.05);
 }
 
 /* TEXT SIDE */
-.project-text{
-flex:1;
-}
-
+.project-text{flex:1;}
 .project-text p{color:#c9d1d9;}
 
-a{
-color:#58a6ff;
-text-decoration:none;
-}
+a{color:#58a6ff;text-decoration:none;}
 
 /* VIDEO MODAL */
 #videoModal{
@@ -172,7 +165,6 @@ flex-direction:column;
 <body>
 
 <header>
-
 <div class="hero">
 
 <div class="hero-text">
@@ -209,26 +201,22 @@ Download Resume
 <img src="Kaushik PP1.jpg" class="profile">
 
 </div>
-
 </header>
 
 <section>
-
 <h2>Featured Projects</h2>
 <div id="projects"></div>
-
 </section>
 
 <!-- VIDEO POPUP -->
 <div id="videoModal" onclick="closeVideo()">
-<video id="modalVideo" controls autoplay></video>
+<video id="modalVideo" controls></video>
 </div>
 
 <script>
 
 const username="Kaushik-NS";
 
-/* SHOW ONLY THESE */
 const featuredRepos=[
 "PAC_MAN3D",
 "Save-The-Earth",
@@ -247,11 +235,8 @@ const filtered=data
 
 filtered.forEach(repo=>{
 
-const imageUrl=
-`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
-
-const videoUrl=
-`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
+const imageUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/thumbnail.png`;
+const videoUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/main/portfolio/demo.mp4`;
 
 const card=document.createElement("div");
 card.className="project";
@@ -262,12 +247,11 @@ card.innerHTML=`
 
 <div class="project-media">
 
-<img src="${imageUrl}"
-onerror="this.style.display='none'">
+<img src="${imageUrl}" onerror="this.remove()">
 
 <video autoplay muted loop playsinline
 onclick="playVideo('${videoUrl}')"
-onerror="this.style.display='none'">
+onerror="this.remove()">
 <source src="${videoUrl}" type="video/mp4">
 </video>
 
