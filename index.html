@@ -235,46 +235,65 @@ const filtered=data
 
 filtered.forEach(repo=>{
 
-const branch = repo.default_branch;   // auto main/master
+const branch=repo.default_branch;
+
 const imageUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/portfolio/thumbnail.png`;
 const videoUrl=`https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/portfolio/demo.mp4`;
 
 const card=document.createElement("div");
 card.className="project";
 
-card.innerHTML=`
-<div class="project-content">
+const mediaDiv=document.createElement("div");
+mediaDiv.className="project-media";
 
-<div class="project-media">
+/* ---------- IMAGE CHECK ---------- */
+const img=new Image();
+img.src=imageUrl;
+img.onload=()=>{ mediaDiv.appendChild(img); };
+img.onerror=()=>{}; // no image = nothing
 
-<img src="${imageUrl}" 
-alt="${repo.name}"
-onerror="this.style.display='none'">
+/* ---------- VIDEO CHECK ---------- */
+fetch(videoUrl,{method:'HEAD'})
+.then(r=>{
+if(r.ok){
 
-<video autoplay muted loop playsinline
-onclick="playVideo('${videoUrl}')"
-onerror="this.style.display='none'">
-<source src="${videoUrl}" type="video/mp4">
-</video>
+const video=document.createElement("video");
+video.src=videoUrl;
+video.autoplay=true;
+video.muted=true;
+video.loop=true;
+video.playsInline=true;
+video.onclick=()=>playVideo(videoUrl);
 
-</div>
+mediaDiv.appendChild(video);
 
-<div class="project-text">
+}
+}).catch(()=>{});
+
+/* ---------- TEXT ---------- */
+const text=document.createElement("div");
+text.className="project-text";
+text.innerHTML=`
 <h3>${repo.name}</h3>
 <p>${repo.description || "No description provided."}</p>
 <p><b>Language:</b> ${repo.language || "N/A"}</p>
 <a href="${repo.html_url}" target="_blank">View Repository</a>
-</div>
-
-</div>
 `;
 
+const content=document.createElement("div");
+content.className="project-content";
+
+content.appendChild(mediaDiv);
+content.appendChild(text);
+
+card.appendChild(content);
 container.appendChild(card);
 
 });
 
 });
 
+/* POPUP VIDEO */
 function playVideo(url){
 const modal=document.getElementById("videoModal");
 const video=document.getElementById("modalVideo");
@@ -293,6 +312,7 @@ modal.style.display="none";
 }
 
 </script>
+
 
 
 
